@@ -186,14 +186,14 @@ echo $DIRPATH   # => "/path/to/"
 ### Slicing
 ```bash
 name="Mojtaba"
-echo ${name}           # => Mojtaba
-echo ${name:0:2}       # => Mo
-echo ${name::2}        # => Mo
-echo ${name::-1}       # => Mojtab
-echo ${name:(-1)}      # => a
-echo ${name:(-2)}      # => ba
-echo ${name:(-2):2}    # => ba
+echo ${name}           # => Mojtaba  # Prints the full variable content
+echo ${name:0:2}       # => Mo       # Extracts the first 2 characters (starting at index 0)
+echo ${name::2}        # => Mo       # Same as above, using shorthand syntax
+echo ${name::-1}       # => Mojtab   # Removes the last character
+echo ${name:(-1)}      # => a        # Extracts the last character
+echo ${name:(-2)}      # => ba       # Extracts the last 2 characters
+echo ${name:(-2):2}    # => ba       # Extracts 2 characters starting from the second-to-last
 
 length=2
-echo ${name:0:length}  # => Mo
+echo ${name:0:length}  # => Mo       # Extracts the first 'length' characters
 ```
