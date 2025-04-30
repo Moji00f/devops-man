@@ -59,7 +59,37 @@ Multi-line comments use `:'` to open and `'` to close
 | `$@`        | All arguments, starting from first    |
 | `$-`        | Current options                       |
 | `$_`        | Last argument of the previous command |
+| `$!`        | Process ID of the most recently executed background job |
 
+✅ `$@` **behaves like an array in loops,** meaning each argument is treated as a separate element.<br/>
+✅ `$*` **behaves like a single quoted string in loops,** meaning all arguments are joined into one string.
+
+#### Example to illustrate the difference in a loop
+```bash
+#!/bin/bash
+for arg in "$@"; do
+    echo "$arg"
+done
+
+for arg in "$*"; do
+    echo "$arg"
+done
+```
+#### Input
+```bash
+./script.sh arg1 arg2 arg3
+```
+
+#### Output
+```bash
+Using "$@":
+arg1
+arg2
+arg3
+
+Using "$*":
+arg1 arg2 arg3  # Treated as a single string
+```
 
 ### Functions
 
