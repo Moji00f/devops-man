@@ -197,3 +197,18 @@ echo ${name:(-2):2}    # => ba       # Extracts 2 characters starting from the s
 length=2
 echo ${name:0:length}  # => Mo       # Extracts the first 'length' characters
 ```
+
+### Transform
+```bash
+STR="MOJTABA AHMADI"
+echo ${STR,}   # => mOJTABA AHMADI  # Converts the first letter to lowercase
+echo ${STR,,}  # => mojtaba ahmadi  # Converts all letters to lowercase
+
+STR="mojtaba ahmadi"
+echo ${STR^}   # => Mojtaba ahmadi  # Capitalizes the first letter
+echo ${STR^^}  # => MOJTABA AHMADI  # Converts all letters to uppercase
+
+ARR=(mojtaba Ahmadi)
+echo "${ARR[@],}" # => mojtaba ahmadi  # Converts the first letter of each element to lowercase
+echo "${ARR[@]^}" # => Mojtaba Ahmadi  # Capitalizes the first letter of each element
+```
