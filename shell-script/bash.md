@@ -242,3 +242,37 @@ ARR=(mojtaba Ahmadi)
 echo "${ARR[@],}" # => mojtaba ahmadi  # Converts the first letter of each element to lowercase
 echo "${ARR[@]^}" # => Mojtaba Ahmadi  # Capitalizes the first letter of each element
 ```
+## Bash Arrays
+
+### Defining arrays
+```bash
+Fruits=('Apple' 'Banana' 'Orange')
+
+Fruits[0]="Apple"
+Fruits[1]="Banana"
+Fruits[2]="Orange"
+
+ARRAY1=(foo{1..2}) # => foo1 foo2
+ARRAY2=({A..D})    # => A B C D
+
+# Merge => foo1 foo2 A B C D
+ARRAY3=(${ARRAY1[@]} ${ARRAY2[@]})
+
+# declare construct
+declare -a Numbers=(1 2 3)
+Numbers+=(4 5) # Append => 1 2 3 4 5
+```
+
+### Indexing
+
+| -                  | -             |
+| ------------------ | ------------- |
+| `${Fruits[0]}`     | First element |
+| `${Fruits[-1]}`    | Last element  |
+| `${Fruits[*]}`     | All elements  |
+| `${Fruits[@]}`     | All elements  |
+| `${#Fruits[@]}`    | Number of all |
+| `${#Fruits}`       | Length of 1st |
+| `${#Fruits[3]}`    | Length of nth |
+| `${Fruits[@]:3:2}` | Range         |
+| `${!Fruits[@]}`    | Keys of all   |
