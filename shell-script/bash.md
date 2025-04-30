@@ -183,3 +183,17 @@ DIRPATH=${SRC%$BASEPATH}
 echo $DIRPATH   # => "/path/to/"
 ```
 
+### Slicing
+```bash
+name="Mojtaba"
+echo ${name}           # => Mojtaba
+echo ${name:0:2}       # => Mo
+echo ${name::2}        # => Mo
+echo ${name::-1}       # => Mojtab
+echo ${name:(-1)}      # => a
+echo ${name:(-2)}      # => ba
+echo ${name:(-2):2}    # => ba
+
+length=2
+echo ${name:0:length}  # => Mo
+```
