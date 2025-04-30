@@ -148,11 +148,11 @@ echo "I'm in `pwd`"
 
 ### Substitution
 
-```
+```bash
 echo ${food:-Cake}  #=> $food or "Cake"
 ```
 
-```
+```bash
 STR="/path/to/foo.go"
 echo ${STR%.go}    # /path/to/foo
 echo ${STR%.go}.o  # /path/to/foo.o
@@ -171,7 +171,7 @@ echo ${STR/foo/bar} # /path/to/bar.go
 
 ### basepath & dirpath
 
-```
+```bash
 SRC="/path/to/foo.go"
 ```
 
