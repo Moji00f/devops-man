@@ -169,3 +169,17 @@ echo ${STR/foo/bar} # /path/to/bar.go
 
 ```
 
+### basepath & dirpath
+
+```
+SRC="/path/to/foo.go"
+```
+
+```bash
+BASEPATH=${SRC##*/}
+echo $BASEPATH  # => "foo.go"
+
+DIRPATH=${SRC%$BASEPATH}
+echo $DIRPATH   # => "/path/to/"
+```
+
