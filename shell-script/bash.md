@@ -168,4 +168,4 @@ echo ${STR##*/}     # foo.go
 echo ${STR/foo/bar} # /path/to/bar.go
 
 ```
----
+
