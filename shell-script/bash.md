@@ -111,6 +111,7 @@ echo "I'm in `pwd`"
 
 ## Bash Parameter expansions
 
+### Syntax 
 
 | Code               | Description         | Example                                                      | Output                     |
 | ------------------ | ------------------- | ------------------------------------------------------------ | -------------------------- |
@@ -122,3 +123,27 @@ echo "I'm in `pwd`"
 | `${FOO//from/to}`  | Replace all         | `text="hello world world"`<br>`echo ${text//world/universe}` | `hello universe universe`  |
 | `${FOO/%from/to}`  | Replace suffix      | `filename="report.doc"`<br>`echo ${filename/%doc/pdf}`       | `report.pdf`               |
 | `${FOO/#from/to}`  | Replace prefix      | `url="http://example.com"`<br>`echo ${url/#http/https}`      | `https://example.com`      |
+
+#### Substrings
+
+| Expression      | Description                     | Example                        | Output            |
+| -------------- | ------------------------------ | ------------------------------ | ------------------- |
+| `${FOO:0:3}`   | Substring _(position, length)_ | `FOO="abcdef"`<br>`echo ${FOO:0:3}` | `abc`          |
+| `${FOO:(-3):3}`| Substring from the right       | `FOO="abcdef"`<br>`echo ${FOO:(-3):3}` | `def`       |
+
+#### Length
+
+| Expression  | Description       | Example                        | Output      |
+| ----------- | ---------------- | ------------------------------  | ----------- |
+| `${#FOO}`  | Length of `$FOO`  | `FOO="hello"`<br>`echo ${#FOO}` | `5`         |
+
+#### Default values
+
+| Expression         | Description                              | Example                                                 | Output                             |
+| ------------------ | ----------------------------------------- | ------------------------------------------------------- | ---------------------------------- |
+| `${FOO:-val}`      | `$FOO`, or `val` if unset                 | `unset FOO`<br>`echo ${FOO:-"default"}`                 | `default`                          |
+| `${FOO:=val}`      | Set `$FOO` to `val` if unset              | `unset FOO`<br>`echo ${FOO:="default"}`                 | `default`                          |
+| `${FOO:+val}`      | `val` if `$FOO` is set                    | `FOO="hello"`<br>`echo ${FOO:+world}`                   | `world`                            |
+| `${FOO:?message}`  | Show message and exit if `$FOO` is unset  | `unset FOO`<br>`echo ${FOO:?"Error: FOO is not set"}`   | `bash: FOO: Error: FOO is not set` |
+
+---
