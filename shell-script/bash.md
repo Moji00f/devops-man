@@ -46,7 +46,6 @@ in bash
 
 Multi-line comments use `:'` to open and `'` to close
 
-### Arguments {.row-span-2}
 
 | Expression  | Description                           |
 | ----------- | ------------------------------------- |
@@ -112,7 +111,6 @@ echo "I'm in `pwd`"
 
 ## Bash Parameter expansions
 
-### Syntax {.row-span-2}
 
 | Code              | Description         |
 | ----------------- | ------------------- |
