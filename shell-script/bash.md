@@ -146,4 +146,26 @@ echo "I'm in `pwd`"
 | `${FOO:+val}`      | `val` if `$FOO` is set                    | `FOO="hello"`<br>`echo ${FOO:+world}`                   | `world`                            |
 | `${FOO:?message}`  | Show message and exit if `$FOO` is unset  | `unset FOO`<br>`echo ${FOO:?"Error: FOO is not set"}`   | `bash: FOO: Error: FOO is not set` |
 
+### Substitution
+
+```
+echo ${food:-Cake}  #=> $food or "Cake"
+```
+
+```
+STR="/path/to/foo.go"
+echo ${STR%.go}    # /path/to/foo
+echo ${STR%.go}.o  # /path/to/foo.o
+echo ${STR%/*}     # /path/to
+echo ${STR%%/*}     #(empty string)
+
+echo ${STR##*.}     # go (extension)
+echo ${STR##*/}     # foo.go (basepath)
+
+echo ${STR#*/}      # path/to/foo.go
+echo ${STR##*/}     # foo.go
+
+echo ${STR/foo/bar} # /path/to/bar.go
+
+```
 ---
