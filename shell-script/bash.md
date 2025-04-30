@@ -112,13 +112,13 @@ echo "I'm in `pwd`"
 ## Bash Parameter expansions
 
 
-| Code              | Description         |
-| ----------------- | ------------------- |
-| `${FOO%suffix}`   | Remove suffix       |
-| `${FOO#prefix}`   | Remove prefix       |
-| `${FOO%%suffix}`  | Remove long suffix  |
-| `${FOO##prefix}`  | Remove long prefix  |
-| `${FOO/from/to}`  | Replace first match |
-| `${FOO//from/to}` | Replace all         |
-| `${FOO/%from/to}` | Replace suffix      |
-| `${FOO/#from/to}` | Replace prefix      |
+| Code               | Description         | Example                                                      | Output                     |
+| ------------------ | ------------------- | ------------------------------------------------------------ | -------------------------- |
+| `${FOO%suffix}`    | Remove suffix       | `filename="doc.txt"`<br>`echo ${filename%.txt}`              | `doc`                      |
+| `${FOO#prefix}`    | Remove prefix       | `url="https://example.com"`<br>`echo ${url#https://}`        | `example.com`              |
+| `${FOO%%suffix}`   | Remove long suffix  | `filename="backup.tar.gz"`<br>`echo ${filename%%.gz}`        | `backup.tar`               |
+| `${FOO##prefix}`   | Remove long prefix  | `path="/home/user/docs"`<br>`echo ${path##*/}`               | `docs`                     |
+| `${FOO/from/to}`   | Replace first match | `text="hello world world"`<br>`echo ${text/world/universe}`  | `hello universe world`     |
+| `${FOO//from/to}`  | Replace all         | `text="hello world world"`<br>`echo ${text//world/universe}` | `hello universe universe`  |
+| `${FOO/%from/to}`  | Replace suffix      | `filename="report.doc"`<br>`echo ${filename/%doc/pdf}`       | `report.pdf`               |
+| `${FOO/#from/to}`  | Replace prefix      | `url="http://example.com"`<br>`echo ${url/#http/https}`      | `https://example.com`      |
