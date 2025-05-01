@@ -321,5 +321,17 @@ done < mylog.log
 - `IFS=` ensures that **leading/trailing spaces** are preserved.
 - `read -r` prevents **interpretation of backslashes.**
 
+### Arrays as arguments
+
+```bash
+function extract()
+{
+    local -n myarray=$1 # Reference the variable passed as an argument
+    local idx=$2
+    echo "${myarray[$idx]}"
+}
+Fruits=('Apple' 'Banana' 'Orange')
+extract Fruits 2     # => Orangle
+```
 
 
