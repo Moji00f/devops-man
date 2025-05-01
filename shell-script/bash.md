@@ -276,3 +276,50 @@ Numbers+=(4 5) # Append => 1 2 3 4 5
 | `${#Fruits[3]}`    | Length of nth |
 | `${Fruits[@]:3:2}` | Range         |
 | `${!Fruits[@]}`    | Keys of all   |
+
+### Iteration
+
+```bash
+Fruits=('Apple' 'Banana' 'Orange')
+
+for e in "${Fruits[@]}"; do
+    echo $e
+done
+```
+
+#### With index
+
+```bash
+for i in "${!Fruits[@]}"; do
+  printf "%s\t%s\n" "$i" "${Fruits[$i]}"
+done
+
+```
+### Operations
+
+```bash
+Fruits=("${Fruits[@]}" "Watermelon")     # Push
+Fruits+=('Watermelon')                   # Also Push
+Fruits=( ${Fruits[@]/Ap*/} )             # Remove by regex match
+unset Fruits[2]                          # Remove one item
+Fruits=("${Fruits[@]}")                  # Duplicate
+Fruits=("${Fruits[@]}" "${Veggies[@]}")  # Concatenate
+lines=(`cat "logfile"`)                  # Read from file
+```
+
+```bash
+# Generate a log file with 10 entries, each including timestamp and INFO level
+for i in {1..10}; do
+    echo "$(date '+%Y-%m-%d %H:%M:%S') [INFO] Log Entry $i - Operation completed" >> mylog.log
+done
+
+# Read and print the log file line by line
+while IFS= read -r line; do
+    echo "$line"
+done < mylog.log
+```
+- `IFS=` ensures that **leading/trailing spaces** are preserved.
+- `read -r` prevents **interpretation of backslashes.**
+
+
+
