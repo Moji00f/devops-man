@@ -462,7 +462,7 @@ if [[ -e "file.txt" ]]; then
 fi
 ```
 
-### File conditions {.row-span-2}
+### File conditions
 
 | Condition         | Description                            |
 | ----------------- | -------------------------------------- |
@@ -481,11 +481,11 @@ fi
 ### More conditions
 
 | Condition            | Description          |
-| -------------------- | -------------------- | ----- | --- |
+| -------------------- | -------------------- |
 | `[[ -o noclobber ]]` | If OPTION is enabled |
 | `[[ ! EXPR ]]`       | Not                  |
 | `[[ X && Y ]]`       | And                  |
-| `[[ X                |                      | Y ]]` | Or  |
+| `[[ X \|\| Y ]]`       | Or                   |
 
 ### logical and, or
 
