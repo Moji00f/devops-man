@@ -461,3 +461,40 @@ if [[ -e "file.txt" ]]; then
     echo "file exists"
 fi
 ```
+
+### File conditions {.row-span-2}
+
+| Condition         | Description                            |
+| ----------------- | -------------------------------------- |
+| `[[ -e FILE ]]`   | <yel>E</yel>xists                      |
+| `[[ -d FILE ]]`   | <yel>D</yel>irectory                   |
+| `[[ -f FILE ]]`   | <yel>F</yel>ile                        |
+| `[[ -h FILE ]]`   | Symlink                                |
+| `[[ -s FILE ]]`   | Size is > 0 bytes                      |
+| `[[ -r FILE ]]`   | <yel>R</yel>eadable                    |
+| `[[ -w FILE ]]`   | <yel>W</yel>ritable                    |
+| `[[ -x FILE ]]`   | Executable                             |
+| `[[ f1 -nt f2 ]]` | f1 <yel>n</yel>ewer <yel>t</yel>han f2 |
+| `[[ f1 -ot f2 ]]` | f2 <yel>o</yel>lder <yel>t</yel>han f1 |
+| `[[ f1 -ef f2 ]]` | Same files                             |
+
+### More conditions
+
+| Condition            | Description          |
+| -------------------- | -------------------- | ----- | --- |
+| `[[ -o noclobber ]]` | If OPTION is enabled |
+| `[[ ! EXPR ]]`       | Not                  |
+| `[[ X && Y ]]`       | And                  |
+| `[[ X                |                      | Y ]]` | Or  |
+
+### logical and, or
+
+```bash
+if [ "$1" = 'y' -a $2 -gt 0 ]; then
+    echo "yes"
+fi
+
+if [ "$1" = 'n' -o $2 -lt 0 ]; then
+    echo "no"
+fi
+```
