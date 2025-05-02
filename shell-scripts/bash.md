@@ -493,6 +493,10 @@ fi
 if [ "$1" = 'y' -a $2 -gt 0 ]; then
     echo "yes"
 fi
+if [ "$1" = 'n' -o $2 -lt 0 ]; then
+    echo "no"
+fi
+```
 
 
 ## Bash Loops
@@ -513,7 +517,7 @@ for ((i = 0 ; i < 100 ; i++)); do
 done
 ```
 
-### Ranges {.row-span-2}
+### Ranges
 
 ```bash
 for i in {1..5}; do
@@ -654,10 +658,5 @@ if myfunc; then
     echo "success"
 else
     echo "failure"
-fi
-```
-
-if [ "$1" = 'n' -o $2 -lt 0 ]; then
-    echo "no"
 fi
 ```
