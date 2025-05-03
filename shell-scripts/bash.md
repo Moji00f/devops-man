@@ -749,3 +749,21 @@ shopt -s globstar
 
 `!!` can be replaced with any valid expansion i.e. `!cat`, `!-2`, `!42`, etc.
 
+### Summary Table
+Command Explanation<br/>
+The :t and :h modifiers are used to manipulate file paths in shell history expansions:<br/>
+- `:t` (**Tail**) → Extracts only the filename from a full path.
+- `:h` (**Head**) → Extracts only the directory path from a full path.
+
+```bash
+cp /home/user/documents/file.txt /tmp
+```
+
+
+| Shortcut  | Output for Files | Output for Directories |
+|-----------|-----------------|------------------------|
+| `!$:t`    | Extracts filename (`file.txt`) | `/` (Since it's already a directory) |
+| `!$:h`    | Extracts directory path (`/home/user/documents`) | `/` (Since it's already a directory) |
+| `!^:t`    | Extracts filename (`file.txt`) | No directory path |
+| `!^:h`    | Extracts directory path (`/home/user/documents`) | No directory path |
+
