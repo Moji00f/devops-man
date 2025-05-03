@@ -660,3 +660,45 @@ else
     echo "failure"
 fi
 ```
+
+## Bash Options {.cols-2}
+
+### Options
+
+```bash
+# Avoid overlay files
+# (echo "hi" > foo)
+set -o noclobber       #set -C
+
+# Used to exit upon error
+# avoiding cascading errors
+set -o errexit        #set -e
+
+# Unveils hidden failures
+set -o pipefail
+
+# Exposes unset variables
+set -o nounset        #set -u
+```
+
+### Glob options
+
+```bash
+# Non-matching globs are removed
+# ('*.foo' => '')
+shopt -s nullglob
+
+# Non-matching globs throw errors
+shopt -s failglob
+
+# Case insensitive globs
+shopt -s nocaseglob
+
+# Wildcards match dotfiles
+# ("*.sh" => ".foo.sh")
+shopt -s dotglob
+
+# Allow ** for recursive matches
+# ('lib/**/*.rb' => 'lib/a/b/c.rb')
+shopt -s globstar
+```
