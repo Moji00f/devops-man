@@ -893,3 +893,51 @@ printf "1 + 1 = %d" 2
 printf "Print a float: %f" 2
 #=> "Print a float: 2.000000"
 ```
+
+### ✅ What is `shift`?
+- `shift` moves positional parameters (`$1, $2, ...`) backward.
+- `$1` is removed, `$2` takes its place, `$3` replaces `$2`, and so on.
+
+### **✅ Example**
+```bash
+#!/bin/bash
+echo "First argument: $1"
+shift
+echo "Now first argument: $1"
+```
+ **Running the script with:** `./script.sh hello world`
+```bash
+First argument: hello
+Now first argument: world
+```
+
+### Getting options
+
+```bash
+while [[ "$1" =~ ^- && ! "$1" == "--" ]]; do case $1 in
+    -V | --version )
+    echo $version
+    exit
+    ;;
+    -s | --string )
+    shift; string=$1
+    ;;
+    -f | --flag )
+    flag=1
+    ;;
+esac; shift; done
+if [[ "$1" == '--' ]]; then shift; fi
+
+echo "Remaining arguments: $@"
+
+# while [[ -n "$1" ]]; do
+#     remaining_args+=("$1")
+#     shift
+# done
+
+# echo "String: $string"
+# echo "Flag: $flag"
+# echo "Remaining arguments: ${remaining_args[@]}"
+
+```
+
