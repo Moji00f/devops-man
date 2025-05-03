@@ -767,3 +767,129 @@ cp /home/user/documents/file.txt /tmp
 | `!^:t`    | Extracts filename (`file.txt`) | No directory path |
 | `!^:h`    | Extracts directory path (`/home/user/documents`) | No directory path |
 
+## Miscellaneous
+
+### Numeric calculations
+
+```bash
+$((a + 200))      # Add 200 to $a
+```
+
+```bash
+$(($RANDOM%200))  # Random number 0..199
+```
+
+### Subshells
+
+```bash
+(cd somedir; echo "I'm now in $PWD")
+pwd # still in first directory
+```
+
+### Inspecting commands
+
+```bash
+command -V cd
+#=> "cd is a function/alias/whatever"
+```
+
+### Redirection {.row-span-2 .col-span-2}
+
+```bash
+python hello.py > output.txt   # stdout to (file)
+python hello.py >> output.txt  # stdout to (file), append
+python hello.py 2> error.log   # stderr to (file)
+python hello.py 2>&1           # stderr to stdout
+python hello.py 2>/dev/null    # stderr to (null)
+python hello.py &>/dev/null    # stdout and stderr to (null)
+```
+
+```bash
+python hello.py < foo.txt      # feed foo.txt to stdin for python
+```
+
+### Source relative
+
+```bash
+source "${0%/*}/../share/foo.sh"
+```
+
+### Directory of script
+
+```bash
+DIR="${0%/*}"
+```
+
+### Case/switch
+
+```bash
+case "$1" in
+    start | up)
+    vagrant up
+    ;;
+
+    *)
+    echo "Usage: $0 {start|stop|ssh}"
+    ;;
+esac
+```
+
+### Trap errors {.col-span-2}
+
+```bash
+trap 'echo Error at about $LINENO' ERR
+```
+
+or
+
+```bash
+traperr() {
+    echo "ERROR: ${BASH_SOURCE[1]} at about ${BASH_LINENO[0]}"
+}
+
+set -o errtrace
+trap traperr ERR
+```
+
+```bash
+trap 'echo "Error at about line $LINENO" >&2; exit 1' ERR  
+
+echo "Starting script..."
+false   
+echo "This line will not execute..."
+```
+
+```bash
+trap 'echo "Cleaning up before exit..."; rm -f temp_file' EXIT  
+
+echo "Starting script..."
+sleep 5
+exit 0
+```
+
+```bash
+trap 'echo "Interrupt detected! Ignoring Ctrl+C..."; exit 1' SIGINT
+
+echo "Press Ctrl+C to test..."
+while true; do sleep 1; done
+```
+
+```bash
+trap 'echo "Process terminated! Saving progress..."' SIGTERM
+
+echo "Process running..."
+while true; do sleep 1; done
+```
+
+### printf
+
+```bash
+printf "Hello %s, I'm %s" Sven Olga
+#=> "Hello Sven, I'm Olga
+
+printf "1 + 1 = %d" 2
+#=> "1 + 1 = 2"
+
+printf "Print a float: %f" 2
+#=> "Print a float: 2.000000"
+```
