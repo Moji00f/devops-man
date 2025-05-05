@@ -938,6 +938,120 @@ echo "Remaining arguments: $@"
 # echo "String: $string"
 # echo "Flag: $flag"
 # echo "Remaining arguments: ${remaining_args[@]}"
-
 ```
+
+
+### Check for command's result 
+
+```bash
+if ping -c 1 google.com; then
+    echo "It appears you have a working internet connection"
+fi
+```
+
+### Special variables 
+
+| Expression | Description                  |
+| ---------- | ---------------------------- |
+| `$?`       | Exit status of last task     |
+| `$!`       | PID of last background task  |
+| `$$`       | PID of shell                 |
+| `$0`       | Filename of the shell script |
+
+
+### Grep check {.col-span-2}
+
+```bash
+if grep -q 'foo' ~/.bash_history; then
+    echo "You appear to have typed 'foo' in the past"
+fi
+```
+
+### Backslash escapes {.row-span-2}
+
+- &nbsp;
+- \!
+- \"
+- \#
+- \&
+- \'
+- \(
+- \)
+- \,
+- \;
+- \<
+- \>
+- \[
+- \|
+- \\
+- \]
+- \^
+- \{
+- \}
+- \`
+- \$
+- \*
+- \?
+
+Escape these special characters with `\`
+
+### Heredoc
+
+```sh
+cat <<END
+hello world
+END
+```
+
+### Go to previous directory
+
+```bash
+pwd # /home/user/foo
+cd bar/
+pwd # /home/user/foo/bar
+cd -
+pwd # /home/user/foo
+```
+
+### Reading input
+
+```bash
+echo -n "Proceed? [y/n]: "
+read ans
+echo $ans
+```
+
+```bash
+read -n 1 ans    # Just one character
+```
+
+### Conditional execution
+
+```bash
+git commit && git push
+git commit || echo "Commit failed"
+```
+
+### Strict mode
+
+```bash
+set -euo pipefail
+IFS=$'\n\t'
+```
+
+**IFS (Internal Field Separator)** determines how Bash splits input data.  
+The default value includes **space (` `), tab (`\t`), and newline (`\n`)** as delimiters.  
+Setting `IFS=$'\n\t'` makes Bash separate only **newline and tab**, ignoring spaces,  
+which prevents issues when handling filenames or input with spaces.
+
+### Optional arguments
+
+```bash
+args=("$@")
+args+=(foo)
+args+=(bar)
+echo "${args[@]}"
+```
+
+Put the arguments into an array and then append
 
