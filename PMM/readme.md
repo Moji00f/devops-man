@@ -96,3 +96,72 @@ docker exec pmm-client pmm-admin show-passwords
 # ریست سرویس PMM Agent
 docker exec pmm-client pmm-agent restart
 ```
+
+create mariadb user
+```
+# اتصال به کانتینر mariadb
+docker exec -it mydb mysql -u root -p
+-- ایجاد کاربر مخصوص PMM
+CREATE USER 'pmm'@'%' IDENTIFIED BY 'YourStrongPassword123!';
+GRANT SELECT, PROCESS, SUPER, REPLICATION CLIENT, RELOAD ON *.* TO 'pmm'@'%';
+FLUSH PRIVILEGES;
+
+# استفاده از localhost (چون پورت منتشر شده)
+sudo pmm-admin add mysql \
+  --username=pmm \
+  --password=YourStrongPassword123! \
+  --host=127.0.0.1 \
+  --port=3306 \
+  --service-name=mariadb-docker \
+  --query-source=perfschema
+```
+
+```
+# فایل docker-compose-pmm-client.yml در VM دوم
+version: '3.8'
+
+services:
+  pmm-client:
+    image: percona/pmm-client:latest
+    container_name: pmm-client
+    restart: always
+    command: >
+      sh -c "
+      pmm-admin config --server-insecure-tls --server-url=https://IP-VM1:8443 --server-token=TOKEN_HERE &&
+      pmm-admin add mysql --username=pmm --password=YourStrongPassword123! --host=mydb --port=3306 --service-name=mariadb-docker --query-source=perfschema &&
+      tail -f /dev/null
+      "
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+      - mariadb-network  # همان شبکه‌ای که mariadb در آن است
+
+networks:
+  mariadb-network:
+    external: true  # شبکه‌ای که mariadb به آن وصل است
+```
+
+```
+# در VM دوم
+sudo pmm-admin ping
+sudo pmm-admin check-network
+
+sudo pmm-admin list
+
+sudo systemctl status pmm-agent
+sudo journalctl -u pmm-agent -f  # مشاهده لاگ real-time
+
+# تست اتصال از VM دوم به MariaDB
+mysql -h 127.0.0.1 -u pmm -p -e "SELECT 1"
+
+# در VM اول
+docker logs pmm-server
+
+# حذف سرویس
+sudo pmm-admin remove mysql mariadb-docker
+
+# اضافه مجدد
+sudo pmm-admin add mysql --username=pmm --password=YourStrongPassword123! --host=127.0.0.1 --port=3306 --service-name=mariadb-docker
+
+sudo pmm-admin repair --password=YourStrongPassword123!
+```
